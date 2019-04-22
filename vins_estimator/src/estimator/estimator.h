@@ -42,10 +42,10 @@ class Estimator
 {
   public:
     Estimator();
-<<<<<<< HEAD
-=======
+
+
     ~Estimator();
->>>>>>> update function
+
 
     void setParameter();
 
@@ -95,12 +95,12 @@ class Estimator
         MARGIN_OLD = 0,
         MARGIN_SECOND_NEW = 1
     };
-<<<<<<< HEAD
 
-=======
+
+
     
     std::mutex mProcess; //增加了过程锁
->>>>>>> update function
+
     std::mutex mBuf;
     queue<pair<double, Eigen::Vector3d>> accBuf;
     queue<pair<double, Eigen::Vector3d>> gyrBuf;
@@ -184,8 +184,8 @@ class Estimator
     Eigen::Quaterniond latest_Q;
 
     bool initFirstPoseFlag;
-<<<<<<< HEAD
-=======
+
+
     bool initThreadFlag;
->>>>>>> update function
+
 };

@@ -17,10 +17,10 @@
 #include <sensor_msgs/PointCloud.h>
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/image_encodings.h>
-<<<<<<< HEAD
-=======
+
+
 #include <cv_bridge/cv_bridge.h>
->>>>>>> update function
+
 #include <nav_msgs/Path.h>
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/PointStamped.h>
@@ -50,11 +50,11 @@ void printStatistics(const Estimator &estimator, double t);
 
 void pubOdometry(const Estimator &estimator, const std_msgs::Header &header);
 
-<<<<<<< HEAD
-=======
+
+
 void pubTrackImage(const cv::Mat &imgTrack, const double t);
 
->>>>>>> update function
+
 void pubInitialGuess(const Estimator &estimator, const std_msgs::Header &header);
 
 void pubKeyPoses(const Estimator &estimator, const std_msgs::Header &header);
@@ -69,8 +69,8 @@ void pubKeyframe(const Estimator &estimator);
 
 void pubRelocalization(const Estimator &estimator);
 
-<<<<<<< HEAD
+
 void pubCar(const Estimator & estimator, const std_msgs::Header &header);
-=======
+
 void pubCar(const Estimator & estimator, const std_msgs::Header &header);
->>>>>>> update function
+

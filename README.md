@@ -1,9 +1,9 @@
-<<<<<<< HEAD
+
 # Modification
 SLAM系统的关键步骤：构建误差方程，设置优化变量，设置斜方差->Jacobian->Hession矩阵
 
 
-=======
+
 # Modification（硕士论文完成之后做的工作）
 SLAM系统的关键步骤：构建误差方程，设置优化变量，设置斜方差->Jacobian->Hession矩阵
 ## 针对移动机器人进行改进
@@ -27,7 +27,7 @@ b) 先时间后空间匹配，筛选特征点。
 ## 注意事项
 1、更改globalOptNode.cpp中的void vio_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)中的输入路径，输出位姿数据；
 2、
->>>>>>> update function
+
 
 # VINS-Fusion
 ## An optimization-based multi-sensor state estimator
@@ -46,11 +46,11 @@ VINS-Fusion is an optimization-based multi-sensor state estimator, which achieve
 
 We are the **top** open-sourced stereo algorithm on [KITTI Odometry Benchmark](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) (12.Jan.2019).
 
-<<<<<<< HEAD
+
 **Authors:** [Tong Qin](http://www.qintonguav.com), [Peiliang Li](https://peiliangli.github.io/), Shaozu Cao, Jie Pan, and [Shaojie Shen](http://www.ece.ust.hk/ece.php/profile/facultydetail/eeshaojie) from the [Aerial Robotics Group](http://uav.ust.hk/), [HKUST](https://www.ust.hk/)
-=======
+
 **Authors:** [Tong Qin](http://www.qintonguav.com), Shaozu Cao, Jie Pan, [Peiliang Li](https://peiliangli.github.io/), and [Shaojie Shen](http://www.ece.ust.hk/ece.php/profile/facultydetail/eeshaojie) from the [Aerial Robotics Group](http://uav.ust.hk/), [HKUST](https://www.ust.hk/)
->>>>>>> update function
+
 
 **Videos:**
 
@@ -58,7 +58,7 @@ We are the **top** open-sourced stereo algorithm on [KITTI Odometry Benchmark](h
 alt="VINS" width="320" height="240" border="10" /></a>
 
 
-<<<<<<< HEAD
+
 **Related Papers:** (papers are not exactly same with code)
 * **VINS-Mono: A Robust and Versatile Monocular Visual-Inertial State Estimator**, Tong Qin, Peiliang Li, Shaojie Shen, IEEE Transactions on Robotics [pdf](https://ieeexplore.ieee.org/document/8421746/?arnumber=8421746&source=authoralert) 
 
@@ -75,7 +75,7 @@ alt="VINS" width="320" height="240" border="10" /></a>
 Other papers are under review yet...
 
 *If you use VINS-Fusion for your academic research, please cite our related papers.*
-=======
+
 **Related Paper:** (paper is not exactly same with code)
 
 * **Online Temporal Calibration for Monocular Visual-Inertial Systems**, Tong Qin, Shaojie Shen, IEEE/RSJ International Conference on Intelligent Robots and Systems (IROS, 2018), **best student paper award** [pdf](https://ieeexplore.ieee.org/abstract/document/8593603)
@@ -84,7 +84,7 @@ Other papers are under review yet...
 
 
 *If you use VINS-Fusion for your academic research, please cite our related papers. [bib](https://github.com/HKUST-Aerial-Robotics/VINS-Fusion/blob/master/support_files/paper_bib.txt)*
->>>>>>> update function
+
 
 ## 1. Prerequisites
 ### 1.1 **Ubuntu** and **ROS**
@@ -135,10 +135,10 @@ Green path is VIO odometry; red path is odometry under visual loop closure.
 ```
     roslaunch vins vins_rviz.launch
     rosrun vins vins_node ~/catkin_ws/src/VINS-Fusion/config/euroc/euroc_stereo_config.yaml 
-<<<<<<< HEAD
-=======
+
+
     (optional) rosrun loop_fusion loop_fusion_node ~/catkin_ws/src/VINS-Fusion/config/euroc/euroc_stereo_config.yaml 
->>>>>>> update function
+
     rosbag play YOUR_DATASET_FOLDER/MH_01_easy.bag
 ```
 
@@ -149,15 +149,15 @@ Green path is VIO odometry; red path is odometry under visual loop closure.
 ### 4.1 KITTI Odometry (Stereo)
 Download [KITTI Odometry dataset](http://www.cvlibs.net/datasets/kitti/eval_odometry.php) to YOUR_DATASET_FOLDER. Take sequences 00 for example,
 Open two terminals, run vins and rviz respectively. 
-<<<<<<< HEAD
+
 ```
     roslaunch vins vins_rviz.launch
-=======
+
 (We evaluated odometry on KITTI benchmark without loop closure funtion)
 ```
     roslaunch vins vins_rviz.launch
     (optional) rosrun loop_fusion loop_fusion_node ~/catkin_ws/src/VINS-Fusion/config/kitti_odom/kitti_config00-02.yaml
->>>>>>> update function
+
     rosrun vins kitti_odom_test ~/catkin_ws/src/VINS-Fusion/config/kitti_odom/kitti_config00-02.yaml YOUR_DATASET_FOLDER/sequences/00/ 
 ```
 ### 4.2 KITTI GPS Fusion (Stereo + GPS)
@@ -199,13 +199,13 @@ cd ~/catkin_ws/src/VINS-Fusion/camera_models/camera_calib_example/
 rosrun camera_models Calibrations -w 12 -h 8 -s 80 -i calibrationdata --camera-model pinhole
 ```
 
-<<<<<<< HEAD
+
 
 ## 7. Acknowledgements
 We use [ceres solver](http://ceres-solver.org/) for non-linear optimization and [DBoW2](https://github.com/dorian3d/DBoW2) for loop detection, a generic [camera model](https://github.com/hengli/camodocal) and [GeographicLib](https://geographiclib.sourceforge.io/).
 
 ## 8. License
-=======
+
 ## 7. Docker Support
 To further facilitate the building process, we add docker in our code. Docker environment is like a sandbox, thus makes our code environment-independent. To run with docker, first make sure [ros](http://wiki.ros.org/ROS/Installation) and [docker](https://docs.docker.com/install/linux/docker-ce/ubuntu/) are installed on your machine. Then add your account to `docker` group by `sudo usermod -aG docker $YOUR_USER_NAME`. **Relaunch the terminal or logout and re-login if you get `Permission denied` error**, type:
 ```
@@ -238,7 +238,7 @@ In Euroc cases, you need open another terminal and play your bag file. If you ne
 We use [ceres solver](http://ceres-solver.org/) for non-linear optimization and [DBoW2](https://github.com/dorian3d/DBoW2) for loop detection, a generic [camera model](https://github.com/hengli/camodocal) and [GeographicLib](https://geographiclib.sourceforge.io/).
 
 ## 9. License
->>>>>>> update function
+
 The source code is released under [GPLv3](http://www.gnu.org/licenses/) license.
 
 We are still working on improving the code reliability. For any technical issues, please contact Tong Qin <qintonguavATgmail.com>.

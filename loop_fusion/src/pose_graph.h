@@ -52,10 +52,10 @@ public:
 	void addKeyFrame(KeyFrame* cur_kf, bool flag_detect_loop);
 	void loadKeyFrame(KeyFrame* cur_kf, bool flag_detect_loop);
 	void loadVocabulary(std::string voc_path);
-<<<<<<< HEAD
-=======
+
+
     void setIMUFlag(bool _use_imu);   //回环检测选择使用4自由度优化还是6自由度优化
->>>>>>> update function
+
 	KeyFrame* getKeyFrame(int index);
 	nav_msgs::Path path[10];
 	nav_msgs::Path base_path;
@@ -74,12 +74,9 @@ public:
 private:
 	int detectLoop(KeyFrame* keyframe, int frame_index);
 	void addKeyFrameIntoVoc(KeyFrame* keyframe);
-<<<<<<< HEAD
-	void optimize4DoF();
-=======
 	void optimize4DoF(); //回环检测选择使用4自由度优化
  	void optimize6DoF(); //回环检测选择使用6自由度优化
->>>>>>> update function
+
 	void updatePath();
 	list<KeyFrame*> keyframelist;
 	std::mutex m_keyframelist;
@@ -95,12 +92,12 @@ private:
 	map<int, cv::Mat> image_pool;
 	int earliest_loop_index;
 	int base_sequence;
-<<<<<<< HEAD
 
-=======
+
+
 	bool use_imu;
     
->>>>>>> update function
+
 	BriefDatabase db;
 	BriefVocabulary* voc;
 
@@ -110,8 +107,8 @@ private:
 	ros::Publisher pub_path[10];
 };
 
-<<<<<<< HEAD
-=======
+
+
 template <typename T> inline
 void QuaternionInverse(const T q[4], T q_inverse[4])
 {
@@ -122,7 +119,7 @@ void QuaternionInverse(const T q[4], T q_inverse[4])
 };
 
 
->>>>>>> update function
+
 template <typename T>
 T NormalizeAngle(const T& angle_degrees) {
   if (angle_degrees > T(180.0))
@@ -282,10 +279,9 @@ struct FourDOFWeightError
 	double relative_yaw, pitch_i, roll_i;
 	double weight;
 
-<<<<<<< HEAD
+
 };
-=======
-};
+
 
 struct RelativeRTError
 {
@@ -350,4 +346,4 @@ struct RelativeRTError
 	double t_var, q_var;
 
 };
->>>>>>> update function
+

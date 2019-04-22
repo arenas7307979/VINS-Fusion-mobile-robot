@@ -20,22 +20,20 @@
 #include <stdio.h>
 #include <visualization_msgs/Marker.h>
 #include <visualization_msgs/MarkerArray.h>
-<<<<<<< HEAD
-=======
 #include <fstream>
 #include <queue>
 #include <mutex>
->>>>>>> update function
+
 
 GlobalOptimization globalEstimator;
 ros::Publisher pub_global_odometry, pub_global_path, pub_car;
 nav_msgs::Path *global_path;
-<<<<<<< HEAD
-=======
+
+
 double last_vio_t = -1;
 std::queue<sensor_msgs::NavSatFixConstPtr> gpsQueue;
 std::mutex m_buf;
->>>>>>> update function
+
 
 void publish_car_model(double t, Eigen::Vector3d t_w_car, Eigen::Quaterniond q_w_car)
 {
@@ -78,7 +76,7 @@ void publish_car_model(double t, Eigen::Vector3d t_w_car, Eigen::Quaterniond q_w
 
 void GPS_callback(const sensor_msgs::NavSatFixConstPtr &GPS_msg)
 {
-<<<<<<< HEAD
+
     //printf("GPS_callback! \n");
     double t = GPS_msg->header.stamp.toSec();
     //printf("receive GPS with timestamp %f\n", GPS_msg->header.stamp.toSec());
@@ -89,22 +87,22 @@ void GPS_callback(const sensor_msgs::NavSatFixConstPtr &GPS_msg)
     double pos_accuracy = GPS_msg->position_covariance[0];
     //printf("receive covariance %lf \n", pos_accuracy);
     globalEstimator.inputGPS(t, latitude, longitude, altitude, pos_accuracy);
-=======
+
     //printf("gps_callback! \n");
     m_buf.lock();
     gpsQueue.push(GPS_msg);
     m_buf.unlock();
->>>>>>> update function
+
 }
 
 void vio_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)
 {
     //printf("vio_callback! \n");
     double t = pose_msg->header.stamp.toSec();
-<<<<<<< HEAD
-=======
+
+
     last_vio_t = t;
->>>>>>> update function
+
     Eigen::Vector3d vio_t(pose_msg->pose.pose.position.x, pose_msg->pose.pose.position.y, pose_msg->pose.pose.position.z);
     Eigen::Quaterniond vio_q;
     vio_q.w() = pose_msg->pose.pose.orientation.w;
@@ -113,8 +111,8 @@ void vio_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)
     vio_q.z() = pose_msg->pose.pose.orientation.z;
     globalEstimator.inputOdom(t, vio_t, vio_q);
 
-<<<<<<< HEAD
-=======
+
+
     m_buf.lock();
     //将GPS数据与当前时刻对齐
     while(!gpsQueue.empty())
@@ -147,7 +145,7 @@ void vio_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)
     m_buf.unlock();
     
     
->>>>>>> update function
+
     Eigen::Vector3d global_t;
     Eigen:: Quaterniond global_q;
     globalEstimator.getGlobalOdom(global_t, global_q);
@@ -166,8 +164,8 @@ void vio_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)
     pub_global_odometry.publish(odometry);
     pub_global_path.publish(*global_path);
     publish_car_model(t, global_t, global_q);
-<<<<<<< HEAD
-=======
+
+
     
     // write result to file
     std::ofstream foutC("/home/cc/output/vio_global.csv", ios::app);
@@ -183,7 +181,7 @@ void vio_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)
             << global_q.y() << ","
             << global_q.z() << endl;
     foutC.close();
->>>>>>> update function
+
 }
 
 int main(int argc, char **argv)

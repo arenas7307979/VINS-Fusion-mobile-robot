@@ -81,10 +81,9 @@ void GlobalOptimization::inputGPS(double t, double latitude, double longitude, d
 	double xyz[3];
 	GPS2XYZ(latitude, longitude, altitude, xyz);
 	vector<double> tmp{xyz[0], xyz[1], xyz[2], posAccuracy};
-<<<<<<< HEAD
-=======
+ 
+ 
     //printf("new gps: t: %f x: %f y: %f z:%f \n", t, tmp[0], tmp[1], tmp[2]);
->>>>>>> update function
 	GPSPositionMap[t] = tmp;
     newGPS = true;
 
@@ -158,8 +157,8 @@ void GlobalOptimization::optimize()
                                                                                 iQj.w(), iQj.x(), iQj.y(), iQj.z(),
                                                                                 0.1, 0.01);
                     problem.AddResidualBlock(vio_function, NULL, q_array[i], t_array[i], q_array[i+1], t_array[i+1]);
-<<<<<<< HEAD
-=======
+ 
+ 
                     
    /*
                     double **para = new double *[4];
@@ -187,7 +186,7 @@ void GlobalOptimization::optimize()
                     std::cout << Eigen::Map<Eigen::Matrix<double, 6, 3, Eigen::RowMajor>>(jaco[3]) << std::endl
                         << std::endl;
                     */
->>>>>>> update function
+ 
                 }
                 //gps factor
                 double t = iterVIO->first;
@@ -198,8 +197,8 @@ void GlobalOptimization::optimize()
                                                                        iterGPS->second[2], iterGPS->second[3]);
                     //printf("inverse weight %f \n", iterGPS->second[3]);
                     problem.AddResidualBlock(gps_function, loss_function, t_array[i]);
-<<<<<<< HEAD
-=======
+ 
+ 
                     /*
                     double **para = new double *[1];
                     para[0] = t_array[i];
@@ -214,7 +213,7 @@ void GlobalOptimization::optimize()
                     std::cout << Eigen::Map<Eigen::Matrix<double, 3, 3, Eigen::RowMajor>>(jaco[0]) << std::endl
                         << std::endl;
                     */
->>>>>>> update function
+ 
 
                 }
 
@@ -274,8 +273,6 @@ void GlobalOptimization::updateGlobalPath()
         pose_stamped.pose.orientation.z = iter->second[6];
         global_path.poses.push_back(pose_stamped);
     }
-<<<<<<< HEAD
+ 
 }
-=======
-}
->>>>>>> update function
+ 

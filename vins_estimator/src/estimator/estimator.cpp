@@ -13,13 +13,13 @@
 Estimator::Estimator(): f_manager{Rs}
 {
     ROS_INFO("init begins");
-<<<<<<< HEAD
+
     clearState();
     prevTime = -1;
     curTime = 0;
     openExEstimation = 0;
     margin_init_pose = false;
-=======
+
     initThreadFlag = false;
     clearState();
 }
@@ -51,17 +51,10 @@ void Estimator::clearState()
     prevTime = -1;
     curTime = 0;
     openExEstimation = 0;
->>>>>>> update function
     initP = Eigen::Vector3d(0, 0, 0);
     initR = Eigen::Matrix3d::Identity();
     inputImageCnt = 0;
     initFirstPoseFlag = false;
-<<<<<<< HEAD
-}
-
-void Estimator::setParameter()
-{
-=======
 
     for (int i = 0; i < WINDOW_SIZE + 1; i++)
     {
@@ -111,11 +104,10 @@ void Estimator::setParameter()
     mProcess.unlock();
 }
 
-
 void Estimator::setParameter()
 {
     mProcess.lock();
->>>>>>> update function
+
     for (int i = 0; i < NUM_OF_CAM; i++)
     {
         tic[i] = TIC[i];
@@ -132,19 +124,19 @@ void Estimator::setParameter()
     featureTracker.readIntrinsicParameter(CAM_NAMES);
 
     std::cout << "MULTIPLE_THREAD is " << MULTIPLE_THREAD << '\n';
-<<<<<<< HEAD
+
     if (MULTIPLE_THREAD)
     {
         processThread   = std::thread(&Estimator::processMeasurements, this);
     }
-=======
+
     if (MULTIPLE_THREAD && !initThreadFlag)
     {
         initThreadFlag = true;
         processThread = std::thread(&Estimator::processMeasurements, this);
     }
     mProcess.unlock();
->>>>>>> update function
+
 }
 
 void Estimator::inputImage(double t, const cv::Mat &_img, const cv::Mat &_img1)
@@ -156,10 +148,10 @@ void Estimator::inputImage(double t, const cv::Mat &_img, const cv::Mat &_img1)
         featureFrame = featureTracker.trackImage(t, _img);
     else
         featureFrame = featureTracker.trackImage(t, _img, _img1);
-<<<<<<< HEAD
+
     //printf("featureTracker time: %f\n", featureTrackerTime.toc());
     
-=======
+
     printf("featureTracker time: %f\n", featureTrackerTime.toc());
  
     if (SHOW_TRACK)
@@ -167,7 +159,7 @@ void Estimator::inputImage(double t, const cv::Mat &_img, const cv::Mat &_img1)
         cv::Mat imgTrack = featureTracker.getTrackImage();
         pubTrackImage(imgTrack, t);
     }
->>>>>>> update function
+
     
     if(MULTIPLE_THREAD)  
     {     
@@ -304,11 +296,11 @@ void Estimator::processMeasurements()
                     processIMU(accVector[i].first, dt, accVector[i].second, gyrVector[i].second);
                 }
             }
-<<<<<<< HEAD
 
-=======
+
+
             mProcess.lock();
->>>>>>> update function
+
             processImage(feature.second, feature.first);
             prevTime = curTime;
 
@@ -324,10 +316,10 @@ void Estimator::processMeasurements()
             pubPointCloud(*this, header);
             pubKeyframe(*this);
             pubTF(*this, header);
-<<<<<<< HEAD
-=======
+
+
             mProcess.unlock();
->>>>>>> update function
+
         }
 
         if (! MULTIPLE_THREAD)
@@ -369,57 +361,6 @@ void Estimator::initFirstPose(Eigen::Vector3d p, Eigen::Matrix3d r)
 }
 
 
-<<<<<<< HEAD
-void Estimator::clearState()
-{
-    for (int i = 0; i < WINDOW_SIZE + 1; i++)
-    {
-        Rs[i].setIdentity();
-        Ps[i].setZero();
-        Vs[i].setZero();
-        Bas[i].setZero();
-        Bgs[i].setZero();
-        dt_buf[i].clear();
-        linear_acceleration_buf[i].clear();
-        angular_velocity_buf[i].clear();
-
-        if (pre_integrations[i] != nullptr)
-        {
-            delete pre_integrations[i];
-        }
-        pre_integrations[i] = nullptr;
-    }
-
-    for (int i = 0; i < NUM_OF_CAM; i++)
-    {
-        tic[i] = Vector3d::Zero();
-        ric[i] = Matrix3d::Identity();
-    }
-
-    solver_flag = INITIAL;
-    first_imu = false;
-    sum_of_back = 0;
-    sum_of_front = 0;
-    frame_count = 0;
-    solver_flag = INITIAL;
-    initial_timestamp = 0;
-    all_image_frame.clear();
-
-    if (tmp_pre_integration != nullptr)
-        delete tmp_pre_integration;
-    if (last_marginalization_info != nullptr)
-        delete last_marginalization_info;
-
-    tmp_pre_integration = nullptr;
-    last_marginalization_info = nullptr;
-    last_marginalization_parameter_blocks.clear();
-
-    f_manager.clearState();
-
-    failure_occur = 0;
-}
-=======
->>>>>>> update function
 //当前时刻PVQ的中值法离散形式
 //IMU积分出來的第j帧时刻的物理量可以作为第j帧图像的初始值
 

@@ -16,10 +16,10 @@ PoseGraph::PoseGraph()
     posegraph_visualization = new CameraPoseVisualization(1.0, 0.0, 1.0, 1.0);
     posegraph_visualization->setScale(0.1);
     posegraph_visualization->setLineWidth(0.01);
-<<<<<<< HEAD
+
 	t_optimization = std::thread(&PoseGraph::optimize4DoF, this);
-=======
->>>>>>> update function
+
+
     earliest_loop_index = -1;
     t_drift = Eigen::Vector3d(0, 0, 0);
     yaw_drift = 0;
@@ -30,10 +30,10 @@ PoseGraph::PoseGraph()
     sequence_cnt = 0;
     sequence_loop.push_back(0);
     base_sequence = 1;
-<<<<<<< HEAD
-=======
+
+
     use_imu = 0;
->>>>>>> update function
+
 
 }
 
@@ -50,8 +50,8 @@ void PoseGraph::registerPub(ros::NodeHandle &n)
     for (int i = 1; i < 10; i++)
         pub_path[i] = n.advertise<nav_msgs::Path>("path_" + to_string(i), 1000);
 }
-<<<<<<< HEAD
-=======
+
+
 // 回环检测选择使用4自由度优化还是6自由度优化
 void PoseGraph::setIMUFlag(bool _use_imu)
 {
@@ -68,7 +68,7 @@ void PoseGraph::setIMUFlag(bool _use_imu)
     }
 
 }
->>>>>>> update function
+
 
 void PoseGraph::loadVocabulary(std::string voc_path)
 {
@@ -133,10 +133,10 @@ void PoseGraph::addKeyFrame(KeyFrame* cur_kf, bool flag_detect_loop)
             double shift_yaw;
             Matrix3d shift_r;
             Vector3d shift_t; 
-<<<<<<< HEAD
+
             shift_yaw = Utility::R2ypr(w_R_cur).x() - Utility::R2ypr(vio_R_cur).x();
             shift_r = Utility::ypr2R(Vector3d(shift_yaw, 0, 0));
-=======
+
             if(use_imu)
             {
                 shift_yaw = Utility::R2ypr(w_R_cur).x() - Utility::R2ypr(vio_R_cur).x();
@@ -144,7 +144,7 @@ void PoseGraph::addKeyFrame(KeyFrame* cur_kf, bool flag_detect_loop)
             }
             else
                 shift_r = w_R_cur * vio_R_cur.transpose();
->>>>>>> update function
+
             shift_t = w_P_cur - w_R_cur * vio_R_cur.transpose() * vio_P_cur; 
             // shift vio pose of whole sequence to the world frame
             if (old_kf->sequence != cur_kf->sequence && sequence_loop[cur_kf->sequence] == 0)
@@ -626,8 +626,8 @@ void PoseGraph::optimize4DoF()
     return;
 }
 
-<<<<<<< HEAD
-=======
+
+
 void PoseGraph::optimize6DoF()
 {
     while(true)
@@ -796,7 +796,7 @@ void PoseGraph::optimize6DoF()
     return;
 }
 
->>>>>>> update function
+
 void PoseGraph::updatePath()
 {
     m_keyframelist.lock();

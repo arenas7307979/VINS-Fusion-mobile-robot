@@ -457,11 +457,11 @@ bool KeyFrame::findConnection(KeyFrame* old_kf)
 
 	            putText(notation, "previous frame: " + to_string(old_kf->index) + "  sequence: " + to_string(old_kf->sequence), cv::Point2f(20 + COL + gap, 30), CV_FONT_HERSHEY_SIMPLEX, 1, cv::Scalar(255), 3);
 	            cv::vconcat(notation, loop_match_img, loop_match_img);
-<<<<<<< HEAD
-=======
+
+
                 cv::imshow("loop_match_image",loop_match_img);
                 cv::waitKey(1);
->>>>>>> update function
+
 
 	            /*
 	            ostringstream path;

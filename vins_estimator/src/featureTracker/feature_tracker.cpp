@@ -83,7 +83,7 @@ void FeatureTracker::setMask()
     }
 }
 
-<<<<<<< HEAD
+
 void FeatureTracker::addPoints()
 {
     for (auto &p : n_pts)
@@ -93,8 +93,8 @@ void FeatureTracker::addPoints()
         track_cnt.push_back(1);
     }
 }
-=======
->>>>>>> update function
+
+
 
 double FeatureTracker::distance(cv::Point2f &pt1, cv::Point2f &pt2)
 {
@@ -104,10 +104,10 @@ double FeatureTracker::distance(cv::Point2f &pt1, cv::Point2f &pt2)
     return sqrt(dx * dx + dy * dy);
 }
 
-<<<<<<< HEAD
-=======
+
+
 //当前时刻的图像跟踪
->>>>>>> update function
+
 map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackImage(double _cur_time, const cv::Mat &_img, const cv::Mat &_img1)
 {
     TicToc t_r;
@@ -202,14 +202,9 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
         }
         else
             n_pts.clear();
-<<<<<<< HEAD
-        ROS_DEBUG("detect feature costs: %fms", t_t.toc());
-
-        ROS_DEBUG("add feature begins");
-        TicToc t_a;
+        
         addPoints();
-        ROS_DEBUG("selectFeature costs: %fms", t_a.toc());
-=======
+
         ROS_DEBUG("detect feature costs: %f ms", t_t.toc());
 
         ROS_DEBUG("add feature begins");
@@ -223,7 +218,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
         }
         
         ROS_DEBUG("selectFeature costs: %f ms", t_a.toc());
->>>>>>> update function
+
     }
 
     cur_un_pts = undistortedPts(cur_pts, m_camera[0]);
@@ -232,7 +227,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
     if(!_img1.empty() && stereo_cam)
     {
         //printf("stereo image; track feature on right image\n");
-<<<<<<< HEAD
+
         vector<cv::Point2f> reverseLeftPts;
         vector<uchar> status, statusRightLeft;
         vector<float> err;
@@ -265,7 +260,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
         */
         cur_un_right_pts = undistortedPts(cur_right_pts, m_camera[1]);
         right_pts_velocity = ptsVelocity(ids_right, cur_un_right_pts, cur_un_right_pts_map, prev_un_right_pts_map);
-=======
+
         // 清空向量的存储
         ids_right.clear();
         cur_right_pts.clear();
@@ -307,7 +302,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
           cur_un_right_pts = undistortedPts(cur_right_pts, m_camera[1]);
           right_pts_velocity = ptsVelocity(ids_right, cur_un_right_pts, cur_un_right_pts_map, prev_un_right_pts_map);
         }
->>>>>>> update function
+
         prev_un_right_pts_map = cur_un_right_pts_map;
     }
     if(SHOW_TRACK)
@@ -507,11 +502,11 @@ vector<cv::Point2f> FeatureTracker::ptsVelocity(vector<int> &ids, vector<cv::Poi
     return pts_velocity;
 }
 
-<<<<<<< HEAD
-=======
+
+
 // 使用双目模式时，显示图像特征跟踪的过程
 // 
->>>>>>> update function
+
 void FeatureTracker::drawTrack(const cv::Mat &imLeft, const cv::Mat &imRight, 
                                vector<int> &curLeftIds,
                                vector<cv::Point2f> &curLeftPts, 
@@ -521,11 +516,7 @@ void FeatureTracker::drawTrack(const cv::Mat &imLeft, const cv::Mat &imRight,
     //int rows = imLeft.rows;
     int cols = imLeft.cols;
     if (!imRight.empty() && stereo_cam)
-<<<<<<< HEAD
-        cv::hconcat(imLeft, imRight, imTrack);
-=======
         cv::hconcat(imLeft, imRight, imTrack); //hconcat函数:用于两个Mat矩阵或者图像的水平拼接
->>>>>>> update function
     else
         imTrack = imLeft.clone();
     cv::cvtColor(imTrack, imTrack, CV_GRAY2RGB);
@@ -541,11 +532,8 @@ void FeatureTracker::drawTrack(const cv::Mat &imLeft, const cv::Mat &imRight,
         {
             cv::Point2f rightPt = curRightPts[i];
             rightPt.x += cols;
-<<<<<<< HEAD
-            cv::circle(imTrack, rightPt, 2, cv::Scalar(0, 255, 0), 2);
-=======
             cv::circle(imTrack, rightPt, 2, cv::Scalar(0, 255, 0), 2); //右边显示绿色的点 BGR颜色排列
->>>>>>> update function
+
             //cv::Point2f leftPt = curLeftPtsTrackRight[i];
             //cv::line(imTrack, leftPt, rightPt, cv::Scalar(0, 255, 0), 1, 8, 0);
         }
@@ -563,35 +551,29 @@ void FeatureTracker::drawTrack(const cv::Mat &imLeft, const cv::Mat &imRight,
     }
 
     //draw prediction
-<<<<<<< HEAD
+
     /*
     for(size_t i = 0; i < predict_pts_debug.size(); i++)
     {
         cv::circle(imTrack, predict_pts_debug[i], 2, cv::Scalar(0, 170, 255), 2);
     }
     */
-=======
+
     
 //     for(size_t i = 0; i < predict_pts_debug.size(); i++)
 //     {
 //         cv::circle(imTrack, predict_pts_debug[i], 2, cv::Scalar(0, 170, 255), 2);  //cv::Scalar(0, 170, 255)
 //     }
     
->>>>>>> update function
+
     //printf("predict pts size %d \n", (int)predict_pts_debug.size());
 
 
     //cv::Mat imCur2Compress;
     //cv::resize(imCur2, imCur2Compress, cv::Size(cols, rows / 2));
-
     cv::imshow("tracking", imTrack);
-<<<<<<< HEAD
-    cv::waitKey(2);
-=======
     cv::waitKey(1);
->>>>>>> update function
 }
-
 
 void FeatureTracker::setPrediction(map<int, Eigen::Vector3d> &predictPts)
 {
@@ -616,7 +598,6 @@ void FeatureTracker::setPrediction(map<int, Eigen::Vector3d> &predictPts)
     }
 }
 
-
 void FeatureTracker::removeOutliers(set<int> &removePtsIds)
 {
     std::set<int>::iterator itSet;
@@ -639,8 +620,4 @@ void FeatureTracker::removeOutliers(set<int> &removePtsIds)
 cv::Mat FeatureTracker::getTrackImage()
 {
     return imTrack;
-<<<<<<< HEAD
 }
-=======
-}
->>>>>>> update function

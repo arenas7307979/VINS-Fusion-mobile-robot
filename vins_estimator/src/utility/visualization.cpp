@@ -23,11 +23,11 @@ ros::Publisher pub_keyframe_pose;
 ros::Publisher pub_keyframe_point;
 ros::Publisher pub_extrinsic;
 
-<<<<<<< HEAD
-=======
+
+
 ros::Publisher pub_image_track;  //发布跟踪图像信息话题
 
->>>>>>> update function
+
 CameraPoseVisualization cameraposevisual(1, 0, 0, 1);
 static double sum_of_path = 0;
 static Vector3d last_path(0.0, 0.0, 0.0);
@@ -47,10 +47,10 @@ void registerPub(ros::NodeHandle &n)
     pub_keyframe_pose = n.advertise<nav_msgs::Odometry>("keyframe_pose", 1000);
     pub_keyframe_point = n.advertise<sensor_msgs::PointCloud>("keyframe_point", 1000);
     pub_extrinsic = n.advertise<nav_msgs::Odometry>("extrinsic", 1000);
-<<<<<<< HEAD
-=======
+
+
     pub_image_track = n.advertise<sensor_msgs::Image>("image_track", 1000); //订阅跟踪话题
->>>>>>> update function
+
 
     cameraposevisual.setScale(0.1);
     cameraposevisual.setLineWidth(0.01);
@@ -74,8 +74,8 @@ void pubLatestOdometry(const Eigen::Vector3d &P, const Eigen::Quaterniond &Q, co
     pub_latest_odometry.publish(odometry);
 }
 
-<<<<<<< HEAD
-=======
+
+
 void pubTrackImage(const cv::Mat &imgTrack, const double t)
 {
     std_msgs::Header header;
@@ -85,7 +85,7 @@ void pubTrackImage(const cv::Mat &imgTrack, const double t)
     pub_image_track.publish(imgTrackMsg);
 }
 
->>>>>>> update function
+
 void printStatistics(const Estimator &estimator, double t)
 {
     if (estimator.solver_flag != Estimator::SolverFlag::NON_LINEAR)
@@ -419,8 +419,5 @@ void pubKeyframe(const Estimator &estimator)
         }
         pub_keyframe_point.publish(point_cloud);
     }
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> update function
