@@ -76,23 +76,10 @@ void publish_car_model(double t, Eigen::Vector3d t_w_car, Eigen::Quaterniond q_w
 
 void GPS_callback(const sensor_msgs::NavSatFixConstPtr &GPS_msg)
 {
-
-    //printf("GPS_callback! \n");
-    double t = GPS_msg->header.stamp.toSec();
-    //printf("receive GPS with timestamp %f\n", GPS_msg->header.stamp.toSec());
-    double latitude = GPS_msg->latitude;
-    double longitude = GPS_msg->longitude;
-    double altitude = GPS_msg->altitude;
-    //int numSats = GPS_msg->status.service;
-    double pos_accuracy = GPS_msg->position_covariance[0];
-    //printf("receive covariance %lf \n", pos_accuracy);
-    globalEstimator.inputGPS(t, latitude, longitude, altitude, pos_accuracy);
-
     //printf("gps_callback! \n");
     m_buf.lock();
     gpsQueue.push(GPS_msg);
     m_buf.unlock();
-
 }
 
 void vio_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)
@@ -143,13 +130,9 @@ void vio_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)
             break;
     }
     m_buf.unlock();
-    
-    
-
     Eigen::Vector3d global_t;
     Eigen:: Quaterniond global_q;
     globalEstimator.getGlobalOdom(global_t, global_q);
-
     nav_msgs::Odometry odometry;
     odometry.header = pose_msg->header;
     odometry.header.frame_id = "world";
@@ -165,8 +148,6 @@ void vio_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)
     pub_global_path.publish(*global_path);
     publish_car_model(t, global_t, global_q);
 
-
-    
     // write result to file
     std::ofstream foutC("/home/cc/output/vio_global.csv", ios::app);
     foutC.setf(ios::fixed, ios::floatfield);

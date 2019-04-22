@@ -459,10 +459,6 @@ int main(int argc, char **argv)
     VINS_RESULT_PATH = VINS_RESULT_PATH + "/vio_loop.csv";
     std::ofstream fout(VINS_RESULT_PATH, std::ios::out);
     fout.close();
-
-    fsSettings.release();
-
-
     int USE_IMU = fsSettings["imu"];
     posegraph.setIMUFlag(USE_IMU); //回环检测选择使用4自由度优化还是6自由度优化
     fsSettings.release();

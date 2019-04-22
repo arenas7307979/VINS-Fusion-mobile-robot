@@ -17,10 +17,7 @@
 #include <sensor_msgs/PointCloud.h>
 #include <sensor_msgs/Image.h>
 #include <sensor_msgs/image_encodings.h>
-
-
 #include <cv_bridge/cv_bridge.h>
-
 #include <nav_msgs/Path.h>
 #include <nav_msgs/Odometry.h>
 #include <geometry_msgs/PointStamped.h>
@@ -69,8 +66,4 @@ void pubKeyframe(const Estimator &estimator);
 
 void pubRelocalization(const Estimator &estimator);
 
-
 void pubCar(const Estimator & estimator, const std_msgs::Header &header);
-
-void pubCar(const Estimator & estimator, const std_msgs::Header &header);
-

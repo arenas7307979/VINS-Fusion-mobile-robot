@@ -13,13 +13,6 @@
 Estimator::Estimator(): f_manager{Rs}
 {
     ROS_INFO("init begins");
-
-    clearState();
-    prevTime = -1;
-    curTime = 0;
-    openExEstimation = 0;
-    margin_init_pose = false;
-
     initThreadFlag = false;
     clearState();
 }
@@ -107,7 +100,6 @@ void Estimator::clearState()
 void Estimator::setParameter()
 {
     mProcess.lock();
-
     for (int i = 0; i < NUM_OF_CAM; i++)
     {
         tic[i] = TIC[i];
@@ -125,18 +117,12 @@ void Estimator::setParameter()
 
     std::cout << "MULTIPLE_THREAD is " << MULTIPLE_THREAD << '\n';
 
-    if (MULTIPLE_THREAD)
-    {
-        processThread   = std::thread(&Estimator::processMeasurements, this);
-    }
-
     if (MULTIPLE_THREAD && !initThreadFlag)
     {
         initThreadFlag = true;
         processThread = std::thread(&Estimator::processMeasurements, this);
     }
     mProcess.unlock();
-
 }
 
 void Estimator::inputImage(double t, const cv::Mat &_img, const cv::Mat &_img1)

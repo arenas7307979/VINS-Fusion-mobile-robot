@@ -84,15 +84,9 @@ void readParameters(std::string config_file)
     MAX_CNT = fsSettings["max_cnt"];
     MIN_DIST = fsSettings["min_dist"];
     F_THRESHOLD = fsSettings["F_threshold"];
-
-    SHOW_TRACK = fsSettings["show_track"];
-
     SHOW_TRACK = fsSettings["show_track"]; //独立于Rviz，显示跟踪的图像
-
     FLOW_BACK = fsSettings["flow_back"];
-
     MULTIPLE_THREAD = fsSettings["multiple_thread"];
-
     USE_IMU = fsSettings["imu"];
     printf("USE_IMU: %d\n", USE_IMU);
     if(USE_IMU)

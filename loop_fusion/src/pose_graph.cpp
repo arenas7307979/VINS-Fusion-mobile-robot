@@ -16,10 +16,6 @@ PoseGraph::PoseGraph()
     posegraph_visualization = new CameraPoseVisualization(1.0, 0.0, 1.0, 1.0);
     posegraph_visualization->setScale(0.1);
     posegraph_visualization->setLineWidth(0.01);
-
-	t_optimization = std::thread(&PoseGraph::optimize4DoF, this);
-
-
     earliest_loop_index = -1;
     t_drift = Eigen::Vector3d(0, 0, 0);
     yaw_drift = 0;
@@ -30,11 +26,7 @@ PoseGraph::PoseGraph()
     sequence_cnt = 0;
     sequence_loop.push_back(0);
     base_sequence = 1;
-
-
     use_imu = 0;
-
-
 }
 
 PoseGraph::~PoseGraph()
@@ -50,7 +42,6 @@ void PoseGraph::registerPub(ros::NodeHandle &n)
     for (int i = 1; i < 10; i++)
         pub_path[i] = n.advertise<nav_msgs::Path>("path_" + to_string(i), 1000);
 }
-
 
 // 回环检测选择使用4自由度优化还是6自由度优化
 void PoseGraph::setIMUFlag(bool _use_imu)

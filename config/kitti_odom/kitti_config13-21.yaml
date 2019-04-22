@@ -5,13 +5,8 @@ imu: 0
 num_of_cam: 2  
 
 imu_topic: ""
-<<<<<<< HEAD
-image0_topic: ""
-image1_topic: ""
-=======
 image0_topic: "/leftImage"
 image1_topic: "/rightImage"
->>>>>>> update function
 output_path: "/home/tony-ws1/output/"
 
 cam0_calib: "cam13-21.yaml"
