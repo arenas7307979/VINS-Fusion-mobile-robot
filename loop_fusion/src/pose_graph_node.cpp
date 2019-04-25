@@ -374,7 +374,7 @@ void process()
         std::this_thread::sleep_for(dura);
     }
 }
-
+// 应该放在哪里使用？可以参照vins-mono
 void command()
 {
     while(1)
@@ -457,13 +457,11 @@ int main(int argc, char **argv)
 
     LOAD_PREVIOUS_POSE_GRAPH = fsSettings["load_previous_pose_graph"];
     VINS_RESULT_PATH = VINS_RESULT_PATH + "/vio_loop.csv";
-    std::ofstream fout(VINS_RESULT_PATH, std::ios::out);
+    std::ofstream fout(VINS_RESULT_PATH, std::ios::ate|std::ios::out); //如果没有文件，那么生成空文件；如果有文件，那么清空该文件
     fout.close();
     int USE_IMU = fsSettings["imu"];
     posegraph.setIMUFlag(USE_IMU); //回环检测选择使用4自由度优化还是6自由度优化
     fsSettings.release();
-
-
 
     if (LOAD_PREVIOUS_POSE_GRAPH)
     {

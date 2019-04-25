@@ -442,7 +442,7 @@ void Estimator::processImage(const map<int, vector<pair<int, Eigen::Matrix<doubl
 
     if (solver_flag == INITIAL)  // 需要初始化
     {
-        if (frame_count == WINDOW_SIZE) // 滑动窗口中塞满了才进行初始化
+        if (frame_count == WINDOW_SIZE) // 滑动窗口中塞满frame了才进行初始化
         {
             bool result = false;
             // if stereo, don't need to do special initialization

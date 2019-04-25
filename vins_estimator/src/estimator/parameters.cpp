@@ -108,7 +108,7 @@ void readParameters(std::string config_file)
     fsSettings["output_path"] >> OUTPUT_FOLDER;
     VINS_RESULT_PATH = OUTPUT_FOLDER + "/vio.csv";
     std::cout << "result path " << VINS_RESULT_PATH << std::endl;
-    std::ofstream fout(VINS_RESULT_PATH, std::ios::out);
+    std::ofstream fout(VINS_RESULT_PATH, std::ios::ate|std::ios::out); //如果没有文件，那么生成空文件；如果有文件，那么清空该文件
     fout.close();
 
     ESTIMATE_EXTRINSIC = fsSettings["estimate_extrinsic"];

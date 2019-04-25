@@ -134,13 +134,14 @@ Green path is VIO odometry; red path is odometry under visual loop closure.
 
 ```
     roslaunch vins vins_rviz.launch
-    rosrun vins vins_node ~/catkin_ws/src/VINS-Fusion/config/euroc/euroc_stereo_config.yaml 
+    rosrun vins vins_node ~/catkin_ws/src/VINS-Fusion-mobile-robot/config/euroc/euroc_stereo_imu_config.yaml
 
 
-    (optional) rosrun loop_fusion loop_fusion_node ~/catkin_ws/src/VINS-Fusion/config/euroc/euroc_stereo_config.yaml 
+    (optional) rosrun loop_fusion loop_fusion_node ~/catkin_ws/src/VINS-Fusion-mobile-robot/config/euroc/euroc_stereo_imu_config.yaml 
 
     rosbag play YOUR_DATASET_FOLDER/MH_01_easy.bag
-```
+``` 需要生成轨迹需要在config文件中设置（最好设置完整路径）
+    生成的轨迹文件有：vio.csv（没有使用回环检测生成的轨迹）；loop_vio.csv（发生回环之后轨迹调整之后的轨迹，理论上这个轨迹精度高）；vio_loop.csv（使用回环检测之后生成的轨迹）。
 
 <img src="https://github.com/HKUST-Aerial-Robotics/VINS-Fusion/blob/master/support_files/image/euroc.gif" width = 430 height = 240 />
 
