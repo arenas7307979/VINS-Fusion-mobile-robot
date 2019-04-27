@@ -399,8 +399,8 @@ void Estimator::processImage(const map<int, vector<pair<int, Eigen::Matrix<doubl
     
     // 把当前帧图像（frame_count）的特征点添加到f_manager.feature容器中
     // 计算第2最新帧与第3最新帧之间的平均视差（当前帧是第1最新帧），然后判断是否把第2最新帧添加为关键帧
-    // 在未完成初始化时，如果窗口没有塞满，那么是否添加关键帧的判定结果不起作用，滑动窗口要塞满
-    // 只有在滑动拆个纽扣塞满后，或者初始化完成之后，才需要滑动窗口，此时才需要做关键帧判别，根据第2最新关键帧是否未关键帧选择相应的边缘化策略
+    // 在未完成初始化时，如果窗口中的帧没有塞满，那么是否添加关键帧的判定结果不起作用，滑动窗口要塞满
+    // 只有在滑动窗口全部塞满后，或者初始化完成之后，才需要滑动窗口，此时才需要做关键帧判别，根据第2最新关键帧是否未关键帧选择相应的边缘化策略
     if (f_manager.addFeatureCheckParallax(frame_count, image, td))
     {
         marginalization_flag = MARGIN_OLD;

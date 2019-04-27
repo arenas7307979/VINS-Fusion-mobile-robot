@@ -95,6 +95,7 @@ void KeyFrame::computeWindowBRIEFPoint()
 	extractor(image, window_keypoints, window_brief_descriptors);
 }
 
+// 再对图像提取一遍FAST特征点，然后计算对应的特征点（使用之前的特征数量可能不丰富，描述子与词袋库进行匹配可能会有偏差）
 void KeyFrame::computeBRIEFPoint()
 {
 	BriefExtractor extractor(BRIEF_PATTERN_FILE.c_str());

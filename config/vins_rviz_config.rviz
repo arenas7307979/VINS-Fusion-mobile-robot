@@ -6,6 +6,7 @@ Panels:
       Expanded:
         - /Global Options1
         - /VIOGroup1
+        - /VIOGroup1/HistoryPointCloud1
         - /GlobalGroup1/CarModel1
       Splitter Ratio: 0.4651159942150116
     Tree Height: 369
@@ -326,7 +327,7 @@ Visualization Manager:
       Name: GlobalGroup
   Enabled: true
   Global Options:
-    Background Color: 211; 215; 207
+    Background Color: 238; 238; 236
     Default Light: true
     Fixed Frame: world
     Frame Rate: 30

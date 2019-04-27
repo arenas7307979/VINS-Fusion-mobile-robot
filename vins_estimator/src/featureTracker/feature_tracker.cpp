@@ -135,7 +135,7 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
         {
             cur_pts = predict_pts;
             cv::calcOpticalFlowPyrLK(prev_img, cur_img, prev_pts, cur_pts, status, err, cv::Size(21, 21), 1, 
-            cv::TermCriteria(cv::TermCriteria::COUNT+cv::TermCriteria::EPS, 30, 0.01), cv::OPTFLOW_USE_INITIAL_FLOW);
+            cv::TermCriteria(cv::TermCriteria::COUNT+cv::TermCriteria::EPS, 30, 0.01), cv::OPTFLOW_USE_INITIAL_FLOW);  //迭代算法的终止条件
             
             int succ_num = 0;
             for (size_t i = 0; i < status.size(); i++)
@@ -198,7 +198,17 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
                 cout << "mask is empty " << endl;
             if (mask.type() != CV_8UC1)
                 cout << "mask type wrong " << endl;
+            //使用harris特征
             cv::goodFeaturesToTrack(cur_img, n_pts, MAX_CNT - cur_pts.size(), 0.01, MIN_DIST, mask);
+
+            //采用FAST特征
+		    std::vector<cv::KeyPoint> keypoints;
+            int fast_threshold = 30;
+            bool nonmaxSuppression = true;
+            cv::FAST(cur_img, keypoints,fast_threshold, nonmaxSuppression);// 没有限制数量
+            //使用AGAST特征
+//             cv::AGAST(cur_img, keypoints,fast_threshold, nonmaxSuppression);// 没有限制数量
+            cv::KeyPoint::convert(keypoints, n_pts, std::vector<int>());
         }
         else
             n_pts.clear();
@@ -523,8 +533,10 @@ void FeatureTracker::drawTrack(const cv::Mat &imLeft, const cv::Mat &imRight,
 
     for (size_t j = 0; j < curLeftPts.size(); j++)
     {
-        double len = std::min(1.0, 1.0 * track_cnt[j] / 20);
-        cv::circle(imTrack, curLeftPts[j], 2, cv::Scalar(255 * (1 - len), 0, 255 * len), 2);
+//         double len = std::min(1.0, 1.0 * track_cnt[j] / 20);
+//         cv::circle(imTrack, curLeftPts[j], 2, cv::Scalar(255 * (1 - len), 0, 255 * len), 2);// 以蓝色作为标准色
+
+        cv::circle(imTrack, curLeftPts[j], 2, cv::Scalar(0, 0, 255), 2);//cv::Scalar(0, 0, 255)是红色
     }
     if (!imRight.empty() && stereo_cam)
     {
