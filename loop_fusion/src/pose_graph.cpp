@@ -185,22 +185,23 @@ void PoseGraph::addKeyFrame(KeyFrame* cur_kf, bool flag_detect_loop)
     pose_stamped.pose.orientation.w = Q.w();
     path[sequence_cnt].poses.push_back(pose_stamped);
     path[sequence_cnt].header = pose_stamped.header;
-
+//  存储成TUM格式的csv:timestamp x y z q_x q_y q_z q_w 
+//（TUM trajectory files must have 8 entries per row and no trailing delimiter at the end of the rows (space)）
+    
     if (SAVE_LOOP_PATH)
     {
         ofstream loop_path_file(VINS_RESULT_PATH, ios::app);
         loop_path_file.setf(ios::fixed, ios::floatfield);
-        loop_path_file.precision(0);
-        loop_path_file << cur_kf->time_stamp * 1e9 << ",";
+        loop_path_file.precision(6);
+        loop_path_file << cur_kf->time_stamp << " ";
         loop_path_file.precision(5);
-        loop_path_file  << P.x() << ","
-              << P.y() << ","
-              << P.z() << ","
-              << Q.w() << ","
-              << Q.x() << ","
-              << Q.y() << ","
-              << Q.z() << ","
-              << endl;
+        loop_path_file  << P.x() << " "
+              << P.y() << " "
+              << P.z() << " "
+              << Q.x() << " "
+              << Q.y() << " "
+              << Q.z() << " "
+              << Q.w() << endl;
         loop_path_file.close();
     }
     //draw local connection
@@ -787,7 +788,7 @@ void PoseGraph::optimize6DoF()
     return;
 }
 
-
+//TODO 该函数和PoseGraph::addKeyFrame都存储轨迹，存储的路径分别是什么？
 void PoseGraph::updatePath()
 {
     m_keyframelist.lock();
@@ -834,22 +835,21 @@ void PoseGraph::updatePath()
             path[(*it)->sequence].poses.push_back(pose_stamped);
             path[(*it)->sequence].header = pose_stamped.header;
         }
-
+//存储成TUM格式的csv:timestamp x y z q_x q_y q_z q_w
         if (SAVE_LOOP_PATH)
         {
             ofstream loop_path_file(VINS_RESULT_PATH, ios::app);
             loop_path_file.setf(ios::fixed, ios::floatfield);
-            loop_path_file.precision(0);
-            loop_path_file << (*it)->time_stamp * 1e9 << ",";
+            loop_path_file.precision(6);
+            loop_path_file << (*it)->time_stamp << " ";
             loop_path_file.precision(5);
-            loop_path_file  << P.x() << ","
-                  << P.y() << ","
-                  << P.z() << ","
-                  << Q.w() << ","
-                  << Q.x() << ","
-                  << Q.y() << ","
-                  << Q.z() << ","
-                  << endl;
+            loop_path_file  << P.x() << " "
+                  << P.y() << " "
+                  << P.z() << " "
+                  << Q.x() << " "
+                  << Q.y() << " "
+                  << Q.z() << " "
+                  << Q.w() << endl;
             loop_path_file.close();
         }
         //draw local connection

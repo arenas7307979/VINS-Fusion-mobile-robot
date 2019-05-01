@@ -26,7 +26,7 @@ b) 先时间后空间匹配，筛选特征点。
 
 ## 注意事项
 1、更改globalOptNode.cpp中的void vio_callback(const nav_msgs::Odometry::ConstPtr &pose_msg)中的输入路径，输出位姿数据；
-2、
+2、将生成轨迹存储成TUM格式的csv，timestamp x y z q_x q_y q_z q_w
 
 
 # VINS-Fusion

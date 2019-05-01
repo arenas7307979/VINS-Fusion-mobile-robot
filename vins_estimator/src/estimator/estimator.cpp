@@ -136,8 +136,13 @@ void Estimator::inputImage(double t, const cv::Mat &_img, const cv::Mat &_img1)
         featureFrame = featureTracker.trackImage(t, _img, _img1);
 
     //printf("featureTracker time: %f\n", featureTrackerTime.toc());
-    
-
+//输出每帧跟踪耗时    
+    ofstream loop_path_file("/home/cc/output/tracking_time.txt", ios::app);
+    loop_path_file.setf(ios::fixed, ios::floatfield);
+    loop_path_file.precision(6);
+    loop_path_file  << featureTrackerTime.toc() << endl;
+    loop_path_file.close();
+        
     printf("featureTracker time: %f\n", featureTrackerTime.toc());
  
     if (SHOW_TRACK)

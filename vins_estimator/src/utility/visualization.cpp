@@ -160,26 +160,32 @@ void pubOdometry(const Estimator &estimator, const std_msgs::Header &header)
         path.poses.push_back(pose_stamped);
         pub_path.publish(path);
 
-        // write result to file
+        // write result to file 将VIO轨迹存储成tum格式的csv:timestamp x y z q_x q_y q_z q_w v_x v_y v_z
         ofstream foutC(VINS_RESULT_PATH, ios::app);
         foutC.setf(ios::fixed, ios::floatfield);
-        foutC.precision(0);
-        foutC << header.stamp.toSec() * 1e9 << ",";
         foutC.precision(6);
-        foutC << estimator.Ps[WINDOW_SIZE].x() << ","
-              << estimator.Ps[WINDOW_SIZE].y() << ","
-              << estimator.Ps[WINDOW_SIZE].z() << ","
-              << tmp_Q.w() << ","
-              << tmp_Q.x() << ","
-              << tmp_Q.y() << ","
-              << tmp_Q.z() << ","
-              << estimator.Vs[WINDOW_SIZE].x() << ","
-              << estimator.Vs[WINDOW_SIZE].y() << ","
-              << estimator.Vs[WINDOW_SIZE].z() << "," << endl;
+        foutC << header.stamp.toSec()  << " ";
+        foutC.precision(6);
+        foutC << estimator.Ps[WINDOW_SIZE].x() << " "
+              << estimator.Ps[WINDOW_SIZE].y() << " "
+              << estimator.Ps[WINDOW_SIZE].z() << " "
+              << tmp_Q.x() << " "
+              << tmp_Q.y() << " "
+              << tmp_Q.z() << " "
+              << tmp_Q.w() << " "
+              << estimator.Vs[WINDOW_SIZE].x() << " "
+              << estimator.Vs[WINDOW_SIZE].y() << " "
+              << estimator.Vs[WINDOW_SIZE].z() << " " 
+              << estimator.Bas[WINDOW_SIZE].x() << " "
+              << estimator.Bas[WINDOW_SIZE].y() << " "
+              << estimator.Bas[WINDOW_SIZE].z() << " "
+              << estimator.Bgs[WINDOW_SIZE].x() << " "
+              << estimator.Bgs[WINDOW_SIZE].y() << " "
+              << estimator.Bgs[WINDOW_SIZE].z() << endl;
         foutC.close();
         Eigen::Vector3d tmp_T = estimator.Ps[WINDOW_SIZE];
-        printf("time: %f, t: %f %f %f q: %f %f %f %f \n", header.stamp.toSec(), tmp_T.x(), tmp_T.y(), tmp_T.z(),
-                                                          tmp_Q.w(), tmp_Q.x(), tmp_Q.y(), tmp_Q.z());
+//         printf("time: %f, t: %f %f %f q: %f %f %f %f \n", header.stamp.toSec(), tmp_T.x(), tmp_T.y(), tmp_T.z(),
+//                                                           tmp_Q.w(), tmp_Q.x(), tmp_Q.y(), tmp_Q.z());
     }
 }
 

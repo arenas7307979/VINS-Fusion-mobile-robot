@@ -106,7 +106,7 @@ void readParameters(std::string config_file)
     MIN_PARALLAX = MIN_PARALLAX / FOCAL_LENGTH;
 
     fsSettings["output_path"] >> OUTPUT_FOLDER;
-    VINS_RESULT_PATH = OUTPUT_FOLDER + "/vio.csv";
+    VINS_RESULT_PATH = OUTPUT_FOLDER + "/vio_tum.txt";  // 将生成轨迹存储成TUM格式的txt，timestamp x y z q_x q_y q_z q_w
     std::cout << "result path " << VINS_RESULT_PATH << std::endl;
     std::ofstream fout(VINS_RESULT_PATH, std::ios::ate|std::ios::out); //如果没有文件，那么生成空文件；如果有文件，那么清空该文件
     fout.close();

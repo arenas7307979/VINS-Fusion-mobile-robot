@@ -456,7 +456,7 @@ int main(int argc, char **argv)
     fsSettings["save_image"] >> DEBUG_IMAGE;
 
     LOAD_PREVIOUS_POSE_GRAPH = fsSettings["load_previous_pose_graph"];
-    VINS_RESULT_PATH = VINS_RESULT_PATH + "/vio_loop.csv";
+    VINS_RESULT_PATH = VINS_RESULT_PATH + "/vio_loop_tum.txt";     //存储成TUM格式的txt:timestamp x y z q_x q_y q_z q_w
     std::ofstream fout(VINS_RESULT_PATH, std::ios::ate|std::ios::out); //如果没有文件，那么生成空文件；如果有文件，那么清空该文件
     fout.close();
     int USE_IMU = fsSettings["imu"];

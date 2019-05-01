@@ -202,13 +202,13 @@ map<int, vector<pair<int, Eigen::Matrix<double, 7, 1>>>> FeatureTracker::trackIm
             cv::goodFeaturesToTrack(cur_img, n_pts, MAX_CNT - cur_pts.size(), 0.01, MIN_DIST, mask);
 
             //采用FAST特征
-		    std::vector<cv::KeyPoint> keypoints;
-            int fast_threshold = 30;
-            bool nonmaxSuppression = true;
-            cv::FAST(cur_img, keypoints,fast_threshold, nonmaxSuppression);// 没有限制数量
+// 		    std::vector<cv::KeyPoint> keypoints;
+//             int fast_threshold = 30;
+//             bool nonmaxSuppression = true;
+//             cv::FAST(cur_img, keypoints,fast_threshold, nonmaxSuppression);// 没有限制数量
             //使用AGAST特征
 //             cv::AGAST(cur_img, keypoints,fast_threshold, nonmaxSuppression);// 没有限制数量
-            cv::KeyPoint::convert(keypoints, n_pts, std::vector<int>());
+//             cv::KeyPoint::convert(keypoints, n_pts, std::vector<int>());
         }
         else
             n_pts.clear();
